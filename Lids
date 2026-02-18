@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Менеджер з продажу</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:system-ui;
+      background:#0b1220;
+      color:white;
+      display:flex;
+      justify-content:center;
+      padding:40px 15px;
+    }
+    .card{
+      width:100%;
+      max-width:520px;
+      background:#0f1b33;
+      border-radius:18px;
+      padding:24px;
+    }
+    input{
+      width:100%;
+      margin-bottom:10px;
+      padding:12px;
+      border-radius:10px;
+      border:0;
+    }
+    button{
+      width:100%;
+      padding:14px;
+      border-radius:10px;
+      border:0;
+      background:#3b82f6;
+      font-weight:bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Менеджер з продажу</h2>
+
+  <form id="leadForm">
+    <input name="name" placeholder="Імʼя" required>
+    <input name="age" placeholder="Вік" required>
+    <input name="city" placeholder="Місто" required>
+    <input name="telegram" placeholder="@telegram" required>
+    <input name="language" placeholder="Мова" required>
+    <input name="phone" placeholder="Телефон" required>
+
+    <button>Надіслати</button>
+  </form>
+</div>
+
+<script>
+const WEBHOOK = "https://hook.eu2.make.com/pr09j5lnqhw6s4sr3tg6rwbyzw6wctst";
+
+document.getElementById("leadForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+
+  const fd = new FormData(e.target);
+  const payload = Object.fromEntries(fd.entries());
+
+  await fetch(WEBHOOK,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify(payload)
+  });
+
+  alert("Заявка відправлена");
+});
+</script>
+
+</body>
+</html>
